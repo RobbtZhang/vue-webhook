@@ -12,4 +12,4 @@ echo "停止旧容器并删除旧容器"
 docker stop blog-s-container
 docker rm blog-s-container
 echo "启动新容器"
-docker container run -p 3000:3001 --name blog-s-container -d blog-s:1.0.3
+docker container run -p 3000:3000 --name blog-s-container -d blog-s:1.0.3
