@@ -11,7 +11,7 @@ yarn build
 echo "开始执行构建"
 docker build -t blog-c:1.0 .
 echo "停止旧容器并删除旧容器"
-docker stop blog-c
-docker rm blog-c
+docker stop blog-c-container
+docker rm blog-c-container
 echo "启动新容器"
-docker container run -p 80:80 --name blog-c -d blog-c:1.0
+docker container run -p 80:80 --name blog-c-container -d blog-c:1.0
