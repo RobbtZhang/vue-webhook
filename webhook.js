@@ -19,9 +19,12 @@ let server = http.createServer(function(req,res){
       if(signature !== sign(body)){
         return res.end('Not Allowed')
       }
+      res.setHeader('Content-Type','application/json')
+      res.end(JSON.stringify({ok:true}))
+      if(event == 'push'){ // 开始部署
+        let payload = JSON.parse(body)
+      }
     })
-    res.setHeader('Content-Type','application/json')
-    res.end(JSON.stringify({ok:true}))
   }else {
     res.end('Not Found')
   }
