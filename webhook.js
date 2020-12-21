@@ -8,6 +8,7 @@ function sign(body) {
 let server = http.createServer(function(req,res){
   console.log(req.method,req.url)
   if(req.method == 'POST' && req.url == '/webhook'){
+    console.log('POST')
     let buffers = []
     req.on('data',function(buffer){
       buffers.push(buffer)
@@ -18,11 +19,13 @@ let server = http.createServer(function(req,res){
       // github 请求来的时候 要传递请求体body 另外还会传一个 signature 过来 需要验证签名
       let signature = req.headers['x-hub-signature']
       if(signature !== sign(body)){
+        console.log('Not Allowed')
         return res.end('Not Allowed')
       }
       res.setHeader('Content-Type', 'application/json')
       res.end(JSON.stringify({ok: true}))
       if(event === 'push'){// 开始部署
+        console.log('push')
         let payload = JSON.parse(body)
         let child = spawn('sh', [`./${payload.repository.name}.sh`])
         let buffers = []
