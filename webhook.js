@@ -22,12 +22,14 @@ let server = http.createServer(function(req,res){
         console.log('Not Allowed')
         return res.end('Not Allowed')
       }
+      console.log(event)
       res.setHeader('Content-Type', 'application/json')
       res.end(JSON.stringify({ok: true}))
       if(event === 'push'){// 开始部署
         console.log('push')
         let payload = JSON.parse(body)
         let child = spawn('sh', [`./${payload.repository.name}.sh`])
+        console.log(`./${payload.repository.name}.sh`)
         let buffers = []
         child.stdout.on('data', function(buffer){
           buffers.push(buffer)
